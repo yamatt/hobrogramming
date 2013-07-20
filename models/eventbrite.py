@@ -58,6 +58,7 @@ class Event(Base):
             end_date=datetime.strptime(event['end_date'], "%Y-%m-%d %H:%M:%S"),
             url=event['url'],
             venue=Venue.from_dict(event.get('venue', {})),
+            organizer=Organizer.from_dict(event.get('organizer', {})),
             tickets=map(lambda ticket: Ticket.from_dict(ticket), event['tickets']),
             food=None,
             check=True
@@ -70,7 +71,7 @@ class Event(Base):
         j = json.load(r)
         return cls.from_dict(j)
     
-    def __init__(self, id, title, status, description, start_date, end_date, url, venue, tickets, food, check=True):
+    def __init__(self, id, title, status, description, start_date, end_date, url, venue, organizer, tickets, food, check=True):
         self.id = id
         self.title = title
         self.status = status
@@ -79,6 +80,7 @@ class Event(Base):
         self.end_date = end_date
         self.url = url
         self.venue = venue
+        self.organizer = organizer
         self.tickets = tickets
         self.food = food
         self.check = check
@@ -152,3 +154,22 @@ class Venue(Base):
         self.lon = lon
         self.lat = lat
         self.address = address
+
+class Organizer(object):
+    @classmethod
+    def from_dict(cls, organizer):
+        try:
+            return cls(
+                id=organizer['id'],
+                name=organizer['name'],
+                description=organizer['description'],
+                url=organizer['url']
+            )
+        except KeyError:
+            return None
+
+    def __init__(self, id, name, description, url):
+        self.id = id
+        self.name = name
+        self.description = description
+        self.url = url

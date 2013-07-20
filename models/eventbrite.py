@@ -22,7 +22,7 @@ class Hacks(object):
         url = self.generate_url(self.SEARCH_URL, self.SEARCH_STRINGS, {'latitude': lat, 'longitude': lon})
         r = urlopen(url)
         j = json.load(r)
-        events = map(lambda event: Event.from_dict(event), j['events'])
+        events = map(lambda event: Event.from_dict(event), j['events'][1:])
         return events
         
 class Event(object):

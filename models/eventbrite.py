@@ -137,15 +137,18 @@ class Venue(Base):
                 id=venue['id'],
                 lon=venue['longitude'],
                 lat=venue['latitude'],
-                country_code=venue['country_code'],
-                city=venue['city'],
+                address={
+                    'street': venue.get('address', ''),
+                    'city': venue.get('city', ''),
+                    'country': venue.get('county_code', ''),
+                    'postcode': venue.get('postcode', '')
+                    }
             )
         except KeyError:
             return None
         
-    def __init__(self, id, lon, lat, country_code, city):
+    def __init__(self, id, lon, lat, address):
         self.id = id
         self.lon = lon
         self.lat = lat
-        self.country_code = country_code
-        self.city = city
+        self.address = address

@@ -1,0 +1,27 @@
+@media not reader {
+  .accessibility-hidden {
+    position: absolute;
+    left: -2500px;
+  }
+}
+
+@media not mobile and (min-width: 950px) {
+  .no-margin {
+    margin: 0 0;
+  }
+  .small {
+    font-size: 80%;
+  }
+  .background-grey {
+    background-color: #eee;
+  }
+  .flashes {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 1em;
+  }
+  .margin-1 {
+    margin: 1em;
+  }
+}

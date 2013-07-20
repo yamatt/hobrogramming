@@ -32,7 +32,7 @@ class Event(object):
         try:
             event = event['event']
         except KeyError:
-           return
+           return None
         return cls(
             id=event['id'],
             title=event['title'],
@@ -41,7 +41,7 @@ class Event(object):
             start_date=datetime.strptime(event['start_date'], "%Y-%m-%d %H:%M:%S"),
             end_date=datetime.strptime(event['end_date'], "%Y-%m-%d %H:%M:%S"),
             url=event['url'],
-            venue=Venue.from_dict(event['venue']),
+            venue=Venue.from_dict(event.get('venue', None)),
             tickets=map(lambda ticket: Ticket.from_dict(ticket), event['tickets']),
             food=None,
             check=True
@@ -85,14 +85,17 @@ class Ticket(object):
         ticket = ticket['ticket']
         if 'price' not in ticket:
             ticket['price'] = 0.0
-        return cls(
-            id=ticket['id'],
-            name=ticket['name'],
-            min=ticket['min'],
-            max=ticket['max'],
-            price=float(ticket['price']),
-            currency=ticket['currency']
-        )
+        try:
+            return cls(
+                id=ticket['id'],
+                name=ticket['name'],
+                min=ticket['min'],
+                max=ticket['max'],
+                price=float(ticket['price']),
+                currency=ticket['currency']
+            )
+        except KeyError:
+            return None
         
     def __init__(self, id, name, min, max, price, currency):
         self.id = id
@@ -110,13 +113,16 @@ class Ticket(object):
 class Venue(object):
     @classmethod
     def from_dict(cls, venue):
-        return cls(
-            id=venue['id'],
-            lon=venue['longitude'],
-            lat=venue['latitude'],
-            country_code=venue['country_code'],
-            city=venue['city'],
-        )
+        try:
+            return cls(
+                id=venue['id'],
+                lon=venue['longitude'],
+                lat=venue['latitude'],
+                country_code=venue['country_code'],
+                city=venue['city'],
+            )
+        except KeyError:
+            return None
         
     def __init__(self, id, lon, lat, country_code, city):
         self.id = id

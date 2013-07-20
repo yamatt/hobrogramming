@@ -29,7 +29,10 @@ class Event(object):
     EVENT_URL = "https://www.eventbrite.com/json/event_get?app_key={0}&id={1}"
     @classmethod
     def from_dict(cls, event):
-        event = event['event']
+        try:
+            event = event['event']
+        except KeyError:
+           return
         return cls(
             id=event['id'],
             title=event['title'],
@@ -80,6 +83,8 @@ class Ticket(object):
     @classmethod
     def from_dict(cls, ticket):
         ticket = ticket['ticket']
+        if 'price' not in ticket:
+            ticket['price'] = 0.0
         return cls(
             id=ticket['id'],
             name=ticket['name'],

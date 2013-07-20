@@ -155,7 +155,7 @@ class Venue(Base):
         self.lat = lat
         self.address = address
 
-class Organizer(object):
+class Organizer(Base):
     @classmethod
     def from_dict(cls, organizer):
         try:

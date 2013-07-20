@@ -24,4 +24,10 @@
   .margin-1 {
     margin: 1em;
   }
+  .no-bullets {
+    list-style-type: none;
+  }
+  .list-striped > li:nth-child(odd) {
+    background-color: #eee;
+  }
 }

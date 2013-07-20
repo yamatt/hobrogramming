@@ -5,6 +5,12 @@ $().ready(function () {
         events.fetch({'data': $(e.currentTarget).serialize()});
     });
     
+    $('#geo').click(function () {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            events.fetch({'data': {'lat': position.coords.latitude, 'lon': position.coords.longitude }});
+        });
+    });
+    
     var Event = Backbone.Model.extend({
         toggle_food: function () {
             this.save({food: !this.get('food')});
@@ -18,10 +24,12 @@ $().ready(function () {
     });
     
     var EventView = Backbone.View.extend({
+        tagName: "li",
+        className: "well",
         template: _.template($('#template_event').html()),
         events: {
-          "click .food"   : "toggle_food",
-          "click .boot"  : "mark_book"
+          "click .food" : "toggle_food",
+          "click .boot" : "book"
         },
         initialize: function() {
             this.listenTo(this.model, 'change', this.render);
@@ -34,6 +42,12 @@ $().ready(function () {
             );
             return this;
         },
+        book: function () {
+            window.location.href = this.model.url;
+        },
+        toggle_food: function () {
+            this.model.toggle_food();
+        }
     });
     
     var Events = Backbone.Collection.extend({
@@ -57,6 +71,7 @@ $().ready(function () {
             this.listenTo(events, 'sync', this.render);
         },
         render: function () {
+            console.log("hello");
             var that = this;
             this.$el.empty();
             events.each(function(event) {
@@ -65,9 +80,11 @@ $().ready(function () {
         },
         add: function (event) {
             var view = new EventView({model:event});
-            this.$el.prepend(view.render().el);
+            this.$el.append(view.render().el);
         }
     });
+    
+    var events_view = new EventsView;
 });
 
 

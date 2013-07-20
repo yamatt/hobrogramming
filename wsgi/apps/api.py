@@ -18,7 +18,9 @@ def get_events():
         lat, lon = convert_city_to_latlon(location)
     if lat and lon:
         events = g.hacks.get_hacks_for_location(lat, lon)
-        return jsonify({'events': events})
+        return jsonify({
+            'events': map(lambda event: event.to_json(), events)
+        })
         
     return jsonify({'success': False, 'message': "Need lat/lon as query string."})
 

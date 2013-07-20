@@ -9,30 +9,38 @@
         <link href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet">
     </head>
     <body>
-        <div class="container">
-            <h1>Hobrogrammer</h1>
-            <form action="/api/get" method="GET" class="form-search">
-                <div class="input-append">
-                    <input type="text" class="span-8 search-query" name="location" placeholder="London, UK" />
-                    <button class="btn" type="submit">Find</button>
-                </div>
-            </form>
-            <button class="btn btn-primary" type="submit">Auto</button>
-            <h2>Results</h2>
-            <ul id="events">
-            </ul>
+        <div class="row">
+            <div class="span4 offset1">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" title="Hobrogrammer Logo" />
+                <h1>Hobrogrammer</h1>
+                <form action="/api/get" method="GET" class="form-search">
+                    <div class="input-append">
+                        <input type="text" class="search-query" name="location" placeholder="London, UK" />
+                        <button class="btn" type="submit">Find</button>
+                    </div>
+                </form>
+                <button class="btn btn-primary" id="geo" type="submit">Auto</button>
+                <p>Hobrogrammer allows you to find events in your local area that offer free food and drink. We aim to chain events together to give you a complete weekend plan.</p>
+            </div>
+            <div class="span9">
+                <h2>Results with free food</h2>
+                <ul id="events" class="no-bullets">
+                </ul>
+            </div>
         </div>
         <script src="{{ url_for('static', filename='js/libs/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/libs/underscore.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/libs/backbone.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-        <script  type="text/template" id="template_events">
-<li>
+        <script  type="text/template" id="template_event">
+<div>
+    <div class="pull-right">
+        <button class="btn book">Book</button>
+        <button class="btn food">Incorrect?</button>
+    </div>
     <h3><%=event.title%></h3>
-    <p><%=event.description%></p>
-    <button class="btn book">Book</button>
-    <button class="btn food">Incorrect?</button>
-</li>
+    <p><%=event.start_date%> - <%=event.venue.city%>, <%=event.venue.country_code%></p>
+</div>
         </script>
     </body>
 </html>

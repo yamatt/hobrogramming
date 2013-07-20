@@ -3,7 +3,23 @@ from urllib import urlencode
 import json
 from datetime import datetime
 
-class Hacks(object):
+class Base(object):
+    def to_json(self):
+        d = self.__dict__
+        results = {}
+        for k,v in d.items():
+            if isinstance(v, datetime):
+                d[k] = v.isoformat()
+            if isinstance(v, list):
+                d[k] = map(lambda i: i.to_json(), v)
+            elif hasattr(v, 'to_json'):
+                    results[k] = v.to_json()
+            else:
+                results[k] = v
+                
+        return results
+
+class Hacks(Base):
     SEARCH_URL = "https://www.eventbrite.com/json/event_search?app_key={0}&keywords={1}&date=This+month{2}"
     SEARCH_STRINGS = ["hack", "code"]
     def __init__(self, pass_key):
@@ -25,7 +41,7 @@ class Hacks(object):
         events = map(lambda event: Event.from_dict(event), j['events'][1:])
         return events
         
-class Event(object):
+class Event(Base):
     EVENT_URL = "https://www.eventbrite.com/json/event_get?app_key={0}&id={1}"
     @classmethod
     def from_dict(cls, event):
@@ -67,6 +83,9 @@ class Event(object):
         self.food = food
         self.check = check
         
+    def to_dict(self):
+        return self.__dict__
+        
     def get_url(self):
         pass
     
@@ -79,7 +98,7 @@ class Event(object):
         else:
             return self.food
         
-class Ticket(object):
+class Ticket(Base):
     @classmethod
     def from_dict(cls, ticket):
         ticket = ticket['ticket']
@@ -110,7 +129,7 @@ class Ticket(object):
             return True
         return False
         
-class Venue(object):
+class Venue(Base):
     @classmethod
     def from_dict(cls, venue):
         try:

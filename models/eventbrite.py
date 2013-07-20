@@ -1,6 +1,7 @@
 from urllib2 import urlopen
 from urllib import urlencode
 import json
+from datetime import datetime
 
 class Hacks(object):
     SEARCH_URL = "https://www.eventbrite.com/json/event_search?app_key={0}&keywords={1}&date=This+month{2}"
@@ -25,7 +26,7 @@ class Hacks(object):
         return events
         
 class Event(object):
-    EVENT_URL = "https://www.eventbrite.com/json/event_get?id={0}"
+    EVENT_URL = "https://www.eventbrite.com/json/event_get?app_key={0}&id={1}"
     @classmethod
     def from_dict(cls, event):
         event = event['event']
@@ -34,21 +35,23 @@ class Event(object):
             title=event['title'],
             status=event['status'],
             description=event['description'],
-            start_date=datetime.strptime(event['start_time'], "%Y-%m-%d %H:%M:%S"),
-            end_date=datetime.strptime(event['end_time'], "%Y-%m-%d %H:%M:%S"),
+            start_date=datetime.strptime(event['start_date'], "%Y-%m-%d %H:%M:%S"),
+            end_date=datetime.strptime(event['end_date'], "%Y-%m-%d %H:%M:%S"),
             url=event['url'],
             venue=Venue.from_dict(event['venue']),
-            tickets=map(lambda ticket: Ticket.from_dict(ticket), event['tickets'])
+            tickets=map(lambda ticket: Ticket.from_dict(ticket), event['tickets']),
+            food=None,
+            check=True
         )
         
     @classmethod
-    def from_id(cls, id):
-        url = self.EVENT_URL.format(id)
+    def from_id(cls, app_key, id):
+        url = Event.EVENT_URL.format(app_key, id)
         r = urlopen(url)
         j = json.load(r)
         return cls.from_dict(j)
     
-    def __init__(self, id, title, status, description, start_date, end_date, url, venue, tickets):
+    def __init__(self, id, title, status, description, start_date, end_date, url, venue, tickets, food, check=True):
         self.id = id
         self.title = title
         self.status = status
@@ -58,6 +61,8 @@ class Event(object):
         self.url = url
         self.venue = venue
         self.tickets = tickets
+        self.food = food
+        self.check = check
         
     def get_url(self):
         pass
@@ -66,7 +71,10 @@ class Event(object):
         pass
         
     def determine_food(self):
-        pass
+        if check:
+            pass
+        else:
+            return self.food
         
 class Ticket(object):
     @classmethod
@@ -96,12 +104,12 @@ class Ticket(object):
         
 class Venue(object):
     @classmethod
-    def from_dict(self, venue):
+    def from_dict(cls, venue):
         return cls(
             id=venue['id'],
             lon=venue['longitude'],
             lat=venue['latitude'],
-            country_code=venue['GB'],
+            country_code=venue['country_code'],
             city=venue['city'],
         )
         

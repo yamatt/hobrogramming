@@ -41,7 +41,7 @@ class Event(object):
             start_date=datetime.strptime(event['start_date'], "%Y-%m-%d %H:%M:%S"),
             end_date=datetime.strptime(event['end_date'], "%Y-%m-%d %H:%M:%S"),
             url=event['url'],
-            venue=Venue.from_dict(event.get('venue', None)),
+            venue=Venue.from_dict(event.get('venue', {})),
             tickets=map(lambda ticket: Ticket.from_dict(ticket), event['tickets']),
             food=None,
             check=True

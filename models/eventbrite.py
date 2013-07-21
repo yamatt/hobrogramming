@@ -1,6 +1,7 @@
 from urllib2 import urlopen
 from urllib import urlencode
 from datetime import datetime
+from datetime import timedelta
 from bs4 import BeautifulSoup
 import json
 
@@ -21,8 +22,10 @@ class Base(object):
         return results
 
 class Hacks(Base):
-    SEARCH_URL = "https://www.eventbrite.com/json/event_search?app_key={0}&keywords={1}&date=This+month{2}"
-    SEARCH_STRINGS = ["hack", "code"]
+    SEARCH_URL = "https://www.eventbrite.com/json/event_search?app_key={0}&within=10&keywords={1}{2}"
+    SEARCH_STRINGS = ["hack", "code", "free", "food"]
+    SEARCH_DATE_RANGE = timedelta(days=30)
+    
     def __init__(self, pass_key):
         self.pass_key = pass_key
         
@@ -36,11 +39,20 @@ class Hacks(Base):
         return url.format(self.pass_key, keywords, qs)
 
     def get_hacks_for_location(self, lat, lon):
-        url = self.generate_url(self.SEARCH_URL, self.SEARCH_STRINGS, {'latitude': lat, 'longitude': lon})
+        start_date = datetime.now()
+        end_date = start_date + self.SEARCH_DATE_RANGE
+        url = self.generate_url(self.SEARCH_URL, self.SEARCH_STRINGS, {
+            'latitude': lat,
+            'longitude': lon,
+            'date': "{0} {1}".format(start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
+        })
         r = urlopen(url)
         j = json.load(r)
-        events = map(lambda event: Event.from_dict(event), j['events'][1:])
-        return events
+        try:
+            events = map(lambda event: Event.from_dict(event), j['events'][1:])
+            return sorted(events, cmp=lambda f,s: cmp(f.start_date, s.start_date))
+        except KeyError:
+            return []
         
 class Event(Base):
     EVENT_URL = "https://www.eventbrite.com/json/event_get?app_key={0}&id={1}"

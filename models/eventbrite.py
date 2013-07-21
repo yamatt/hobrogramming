@@ -142,7 +142,7 @@ class Venue(Base):
                 address={
                     'street': venue.get('address', ''),
                     'city': venue.get('city', ''),
-                    'country': venue.get('county_code', ''),
+                    'country': venue.get('country_code', ''),
                     'postcode': venue.get('postcode', '')
                     }
             )

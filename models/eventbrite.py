@@ -90,14 +90,17 @@ class Event(Base):
         return self.__dict__
 
     def determine_food(self):
+        SEARCH_TERMS = ["food","snack". "drink","buffet","refreshments", "meal"]
         data = urlopen(self.url)
 
         # use html.parser because we're only aiming for 2.7 or better
         soup = BeautifulSoup(data, 'html.parser')
 
         for p in soup.findAll('p'):
-            if "food" in str(p) or "Food" in str(p):
-                return True
+            p = str(p).lower()
+            for term in SEARCH_TERMS:
+                if term in p:
+                    return True
 
         return False
  

@@ -91,7 +91,9 @@ class Event(Base):
 
     def determine_food(self):
         data = urlopen(self.url)
-        soup = BeautifulSoup(data)
+
+        # use html.parser because we're only aiming for 2.7 or better
+        soup = BeautifulSoup(data, 'html.parser')
 
         for p in soup.findAll('p'):
             if "food" in str(p) or "Food" in str(p):

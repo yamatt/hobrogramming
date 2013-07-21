@@ -90,7 +90,7 @@ class Event(Base):
         return self.__dict__
 
     def determine_food(self):
-        SEARCH_TERMS = ["food","snack". "drink","buffet","refreshments", "meal"]
+        SEARCH_TERMS = ["food","snack", "drink","buffet","refreshments", "meal","breakfast","dinner","tea","coffee"]
         data = urlopen(self.url)
 
         # use html.parser because we're only aiming for 2.7 or better

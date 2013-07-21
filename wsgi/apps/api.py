@@ -22,7 +22,7 @@ def get_events():
         for event in events:
             db_event = g.database.get_event(event.id)
             if db_event:
-                event.food = db_event.food
+                event.food = db_event.has_food
             else:
                 food = event.determine_food()
                 event.food = food
@@ -38,5 +38,5 @@ def get_events():
 def update_event(id):
     response = request.data
     j = json.loads(response)
-    print "####", j['food']
     g.database.update_food(id, j['food'])
+    return jsonify({'success': True})

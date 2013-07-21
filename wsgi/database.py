@@ -22,8 +22,10 @@ class database(object):
         self.session.commit()
         
     def update_food(self, id, value):
-        food_event = self.get_event(id)
-        food_event.update_food(value)
+        updated_item = food_events(id=id, has_food=value)
+        merged_item = self.session.merge(updated_item)
+        self.session.add(merged_item)
+        self.session.commit()
 
 class food_events(Base):
     __tablename__ = "food_events"
@@ -33,4 +35,3 @@ class food_events(Base):
 
     def update_food(self, value):
         self.has_food = value
-        self.session.commit()

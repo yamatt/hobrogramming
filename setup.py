@@ -6,5 +6,5 @@ setup(name='Hobrogrammer',
       author='Matt Copperwaite',
       author_email='none@none.com',
       url='http://hobrogrammer.com',
-      install_requires=['Flask', 'SQLAlchemy', "beautifulsoup4"],
+      install_requires=['Flask', 'SQLAlchemy', "beautifulsoup4", "MySQL-python"],
 )

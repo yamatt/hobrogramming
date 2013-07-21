@@ -16,6 +16,11 @@ class database(object):
     def get_event(self, id):
         return self.session.query(food_events).filter_by(id=id).first()
         
+    def set_food(self, id, value):
+        food_event = food_events(id=id, has_food=value)
+        self.session.add(food_event)
+        self.session.commit()
+        
     def update_food(self, id, value):
         food_event = self.get_event(id)
         food_event.update_food(value)

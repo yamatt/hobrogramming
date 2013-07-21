@@ -12,6 +12,7 @@ $().ready(function () {
     });
     
     var Event = Backbone.Model.extend({
+        urlRoot: "/api/update",
         toggle_food: function () {
             this.save({food: !this.get('food')});
         },

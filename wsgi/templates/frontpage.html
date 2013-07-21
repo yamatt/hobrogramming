@@ -20,7 +20,7 @@
                         <button class="btn" type="submit">Find</button>
                     </div>
                 </form>
-                <button class="btn btn-primary" id="geo" type="submit">Auto</button>
+                <button class="btn btn-primary" id="geo" type="submit">Near Me</button>
                 <p>Hobrogrammer allows you to find events in your local area that offer free food and drink. We aim to chain events together to give you a complete weekend plan.</p>
             </div>
             <div class="span9">
@@ -41,6 +41,12 @@
     </div>
     <h3><%=event.title%></h3>
     <p><%=event.start_date%> - <%=event.venue.address.city%>, <%=event.venue.address.country%></p>
+    <% if ( event.food ) { %>
+        <p class="alert alert-success">Has Free Food!</p>
+    <% } else { %>
+        <p class="alert alert-error">No Free Food!</p>
+    <% } %>
+    
 </div>
         </script>
     </body>

@@ -35,16 +35,14 @@
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
         <script  type="text/template" id="template_event">
 <div>
-    <div class="pull-right">
-        <button class="btn book">Book</button>
-        <button class="btn food">Incorrect?</button>
-    </div>
-    <h3><%=event.title%></h3>
-    <p><%=event.start_date%> - <%=event.venue.address.city%>, <%=event.venue.address.country%></p>
     <% if ( event.food ) { %>
-        <p class="alert alert-success">Has Free Food!</p>
+        <button class="btn book pull-right">Book</button>
+        <h3><%=event.title%></h3>
+        <p><%=event.start_date%> - <%=event.venue.address.city%>, <%=event.venue.address.country%></p>
+        <p class="alert alert-success">Has Free Food! <button class="btn btn-small food pull-right">Incorrect?</button></p>
     <% } else { %>
-        <p class="alert alert-error">No Free Food!</p>
+        <h3 class="small"><%=event.title%></h3>
+        <p class="alert alert-error">No Free Food! <button class="btn btn-small food pull-right">Incorrect?</button></p>
     <% } %>
     
 </div>

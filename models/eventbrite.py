@@ -1,7 +1,8 @@
 from urllib2 import urlopen
 from urllib import urlencode
-import json
 from datetime import datetime
+from bs4 import BeautifulSoup
+import json
 
 class Base(object):
     def to_json(self):
@@ -87,19 +88,17 @@ class Event(Base):
         
     def to_dict(self):
         return self.__dict__
-        
-    def get_url(self):
-        pass
-    
-    def get_site(self):
-        pass
-        
+
     def determine_food(self):
-        if check:
-            pass
-        else:
-            return self.food
-        
+        data = urlopen(self.url)
+        soup = BeautifulSoup(data)
+
+        for p in soup.findAll('p'):
+            if "food" in str(p) or "Food" in str(p):
+                return True
+
+        return False
+ 
 class Ticket(Base):
     @classmethod
     def from_dict(cls, ticket):

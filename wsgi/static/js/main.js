@@ -10,7 +10,7 @@ $().ready(function () {
             data = "location=London%2C+UK"
         }
         events.fetch({'data': data});
-        $("#events").append("<li>Getting results...<li>")
+        $("#events").empty().append("<li>Getting results...<li>")
     });
     
     $('#geo').click(function () {

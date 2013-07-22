@@ -36,7 +36,7 @@ $().ready(function () {
         else {            
             popup.render(
                 "Change event?",
-                "Are you sure you wish to mark that " + this_event.get("title") + " <b>has having free food?</b>",
+                "Are you sure you wish to mark that " + this_event.get("title") + " <b>has free food?</b>",
                 "Save change",
                 this_event.toggle_food
             )

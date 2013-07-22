@@ -36,8 +36,8 @@ GPLv3 (see LICENSE)
 Taken from [OpenClipart](http://openclipart.org/detail/8302/baseball-cap-by-gerald_g-8302) unsure about license but assumed to allow remixes.
 
 # Contact
-[OpenClipart](http://openclipart.org/detail/8302/baseball-cap-by-gerald_g-8302)
+* [Matt Copperwaite](http://twitter.com/mattcopp)
+* [Moggers87](http://twitter.com/moggers87)
 
 # Thanks To
-* [Moggers87](http://twitter.com/moggers87)
-* All organisers of [Hacked.IO](http://hacked.io)
+* All organisers and attendees of [Hacked.IO](http://hacked.io)

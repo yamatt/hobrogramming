@@ -10,6 +10,7 @@
         <link href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet">
     </head>
     <body>
+        <a href="https://github.com/yamatt/hobrogrammer"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
         <div class="row">
             <div class="span4 offset1">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" title="Hobrogrammer Logo" />
@@ -22,8 +23,14 @@
                 </form>
                 <button class="btn btn-primary" id="geo" type="submit">Near Me</button>
                 <p>Hobrogrammer allows you to find events in your local area that offer free food and drink. We aim to chain events together to give you a complete weekend plan.</p>
+                <p>Creators:</p>
+                <ul>
+                    <li><a href="http://twitter.com/mattcopp">Matt Copperwaite</a></li>
+                    <li><a href="http://twitter.com/moggers87">Moggers</a></li>
+                </ul>
+                <p>With special thanks to everyone at <a href="http://hacked.io">Hacked.IO</a></p>
             </div>
-            <div class="span9">
+            <div class="span8">
                 <h2>Results</h2>
                 <ul id="events" class="no-bullets">
                 </ul>

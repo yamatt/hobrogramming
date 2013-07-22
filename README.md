@@ -7,7 +7,7 @@ Hobrogrammer is a web-app that allows users to search for events with free food 
 * SQLAlchemy
 * BeautifulSoup4
 
-# Running
+## Running
 Copy the file `settings.private.default` to `settings.private` and edit the contents using Python format like so:
 * `SECRET_KEY`: any random string to salt cookies and for form validation
 * `EVENTBRITE_API_KEY`: Apply to [EventBrite for an API key](https://www.eventbrite.com/api/key/) and put it in here

@@ -32,7 +32,7 @@ def get_events():
             'events': map(lambda event: event.to_json(), events)
         })
         
-    return jsonify({'success': False, 'message': "Need lat/lon as query string."})
+    return jsonify({'success': False, 'message': "Invalid search criteria. Either specify lat/lon or location."})
 
 @api.route("/update/<id>", methods=["POST", "PUT"])
 def update_event(id):

@@ -10,7 +10,7 @@
         <link href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet">
     </head>
     <body>
-        <a href="https://github.com/yamatt/hobrogrammer"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+        <a href="https://github.com/yamatt/hobrogramming"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
         <div class="row">
             <div class="span4 offset1">
                 <img src="{{ url_for('static', filename='img/logo.png') }}" title="Hobrogrammer Logo" />
@@ -23,7 +23,7 @@
                 </form>
                 <button class="btn btn-primary" id="geo" type="submit">Near Me</button>
                 <p>Hobrogrammer allows you to find events in your local area that offer free food and drink. We aim to chain events together to give you a complete weekend plan.</p>
-                <p>Creators:</p>
+                <h2>Creators:</h2>
                 <ul>
                     <li><a href="http://twitter.com/mattcopp">Matt Copperwaite</a></li>
                     <li><a href="http://twitter.com/moggers87">Moggers</a></li>
@@ -39,6 +39,7 @@
         <script src="{{ url_for('static', filename='js/libs/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/libs/underscore.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/libs/backbone.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
         <script  type="text/template" id="template_event">
 <div>
@@ -52,6 +53,21 @@
         <p class="alert alert-error">No Free Food! <button class="btn btn-small food pull-right">Incorrect?</button></p>
     <% } %>
     
+</div>
+        </script>
+        <script type="text/template" id="template_popup">
+<div class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" title="close" aria-hidden="true">&times;</button>
+    <h3><%=title%></h3>
+  </div>
+  <div class="modal-body">
+    <p><%=content%></p>
+  </div>
+  <div class="modal-footer">
+    <button href="#" class="btn btn-warning ok"><%=button_label%></button>
+    <button href="#" class="btn cancel">Cancel</button>
+  </div>
 </div>
         </script>
     </body>

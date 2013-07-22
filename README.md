@@ -24,6 +24,9 @@ We make use of:
 * Flask is used to dispatch the pages and handle the API calls
 * SQLAlchemy is used for caching  the results from what events have free food.
 * BeautifulSoup4 is used to process the results from EventBrite to determine if it has free food.
+* HTML5
+* jQuery to do the dynamic searching
+* Backbone/Underscore used to dynamically generate results
 
 # License
 ## Code

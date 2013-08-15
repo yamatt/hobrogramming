@@ -128,7 +128,7 @@ class Ticket(Base):
                 name=ticket['name'],
                 min=ticket['min'],
                 max=ticket['max'],
-                price=float(ticket['price']),
+                price=ticket['price'],  # not converting to float as may contain , separaters
                 currency=ticket['currency']
             )
         except KeyError:
